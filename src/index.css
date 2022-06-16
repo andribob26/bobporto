@@ -1,13 +1,73 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+@layer base {
+    html {
+        font-family: 'Jost', system-ui, sans-serif;
+        overflow-x: hidden;
+        background-color: rgb(250 250 250);
+        color: rgb(24 24 27);
+    }
+
+
+    .flip {
+        position: absolute;
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+        perspective: 1000;
+    }
+
+    .image-gallery:hover .flipIn {
+        -webkit-transform: rotate3d(0, 1, 0, 180deg);
+        -moz-transform: rotate3d(0, 1, 0, 180deg);
+        transform: rotate3d(0, 1, 0, 180deg);
+    }
+
+    .flip .flipIn {
+        position: relative;
+        float: left;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .flip .flipIn .content {
+        display: table-cell;
+        transform: rotate(45deg);
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .flip .flipIn .front {
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 2;
+        border-radius: 6px;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .filter-item {
+        width: 33.33%;
+        padding: 5px;
+    }
+
+    @media (min-width: 768px) {
+        .filter-item {
+            width: 25%;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .filter-item {
+            width: 16.66%;
+        }
+    }
 }
