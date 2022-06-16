@@ -27,18 +27,20 @@ const Contact = () => {
                 toastRef.current.classList.remove('-translate-y-5')
                 toastRef.current.classList.add('translate-y-10')
             }, 2000);
-            setForm({
+            setForm((form) => ({
                 ...form,
                 nama: '',
                 email: '',
                 message: ''
             })
+
+            )
         }
 
     }, [status])
 
     const onchangeHandler = (e) => {
-      
+
         setForm({
             ...form,
             [e.target.name]: e.target.value
@@ -140,7 +142,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            <div ref={toastRef} className="bg-zinc-900 text-zinc-50 transition-all duration-300 text-center md:w-1/4 w-4/5  bg-opacity-80 fixed left-1/2 bottom-0 translate-y-10 -translate-x-1/2 px-5 py-2 rounded">
+            <div ref={toastRef} className="bg-zinc-900 text-zinc-50 transition-all duration-300 text-center  lg:w-1/4 md:w-2/4 w-4/5  bg-opacity-80 fixed left-1/2 bottom-0 translate-y-10 -translate-x-1/2 px-5 py-2 rounded">
                 Terimakasih sudah menghubungi
             </div>
         </>

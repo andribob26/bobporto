@@ -7,6 +7,7 @@ const ImageGalerry = ({ url, title, desc, category }) => {
   const modalBoxRef = useRef()
   const [imgSrc, setImgSrc] = useState('')
 
+
   const modalImageShow = () => {
     setImgSrc(imgRef.current.src)
     modalBoxRef.current.classList.remove("-translate-y-full")
@@ -15,19 +16,28 @@ const ImageGalerry = ({ url, title, desc, category }) => {
 
   useEffect(() => {
 
+    imgRef.current.onload = () =>{
+      imgRef.current.classList.remove("animate-pulse")
+      imgRef.current.parentElement.addEventListener("click", modalImageShow)
+    }
+
+    imgRef.current.onerror = () =>{
+      imgRef.current.classList.remove("bg-slate-200")
+    }
     
-  }, [])
+  }, [imgSrc])
 
   return (
     <>
-      <div onClick={modalImageShow} className={`image-gallery relative cursor-pointer filter-item ${category} `}>
+      <div className={`image-gallery relative cursor-pointer filter-item ${category} `}>
+
         <img
           ref={imgRef}
-          className='object-cover md:h-36 lg:h-48 h-28 w-full rounded-md'
+          className='relative bg-slate-200 animate-pulse object-cover md:h-36 lg:h-48 h-28 w-full rounded-md'
           src={`${url}`}
           alt=''
         />
-
+        
         <div className='flip lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2'>
           <div className='flipIn lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 transition-all duration-500'>
             <div className='front lg:h-24 lg:w-24 md:h-20 md:w-20 h-16 w-16 bg-zinc-50'>

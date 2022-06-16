@@ -59,6 +59,44 @@
         padding: 5px;
     }
 
+
+    .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        letter-spacing: 4.4px;
+        text-transform: capitalize;
+        overflow: hidden;
+    }
+
+    .loading::before {
+        color: rgb(161 161 170);
+        content: attr(data-loading-text);
+    }
+
+    .loading::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        opacity: 1;
+        color: rgb(24 24 27);
+        overflow: hidden;
+        content: attr(data-loading-text);
+        animation: loading 5s infinite;
+    }
+
+    @keyframes loading {
+        0% {
+            width: 0;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
+
     @media (min-width: 768px) {
         .filter-item {
             width: 25%;

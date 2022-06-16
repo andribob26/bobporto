@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState,} from 'react'
+import React, { useEffect, useRef, useState, } from 'react'
 import { useSelector } from 'react-redux'
 import ImageGalerry from './ImageGalerry'
 import Isotope from 'isotope-layout'
@@ -78,7 +78,7 @@ const Gallery = () => {
                 {
 
                     status === 'Pending' ?
-                        <p></p>
+                        <div className="loading mt-44" data-loading-text="Memuat&nbsp;gallery..."></div>
 
                         :
                         status === 'Fulfilled' ?
@@ -91,7 +91,7 @@ const Gallery = () => {
                                     category={item.category}
                                 />
                             }) :
-                            status === "Rejected" && <p>kosong</p>
+                            status === "Rejected" && <p className="text-center">kosong</p>
 
                 }
 
