@@ -1,7 +1,8 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useRef } from 'react'
 
-export const NavSide = ({btnToggleRef, appContainerRef, menuSideRef, smoothScroll }) => {
+export const NavSide = ({ btnToggleRef, appContainerRef, menuSideRef, smoothScroll }) => {
     // console.log('jalan componenet navside')
+    const linkRef = useRef()
     useEffect(() => {
         let headerHeight = document.querySelector("#header").offsetHeight
         if (window.pageYOffset > headerHeight) {
@@ -35,6 +36,16 @@ export const NavSide = ({btnToggleRef, appContainerRef, menuSideRef, smoothScrol
             appEl.classList.toggle('translate-x-[6.57rem]')
         }
     }
+
+    const linkClick = (e, link) => {
+
+        linkRef.current.childNodes.forEach(el => {
+            if (e.currentTarget.id === el.id) {
+                window.open(link)
+            }
+        })
+
+    }
     return (
         <>
             <div ref={menuSideRef} id="menu-side" className="bg-zinc-50 pl-16 h-full z-20  transition-all duration-500 fixed -translate-x-[11.375rem] opacity-0">
@@ -46,17 +57,17 @@ export const NavSide = ({btnToggleRef, appContainerRef, menuSideRef, smoothScrol
                 </ul>
             </div>
             <div className='bg-zinc-50 fixed z-20 lg:h-full md:h-full h-0 lg:flex md:flex flex flex-col justify-center items-center w-16 text-zinc-600'>
-                <div className='hidden lg:block md:block'>
-                    <div className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
+                <div ref={linkRef} className='hidden lg:block md:block'>
+                    <div onClick={(e) => { linkClick(e, 'https://www.facebook.com/andri.febrian.50159') }} id='fb' className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
                         <i className='fa-brands fa-facebook-square fa-2xl'></i>
                     </div>
-                    <div className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
+                    <div onClick={(e) => { linkClick(e, 'https://www.instagram.com/andribob26/') }} id='ig' className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
                         <i className='fa-brands fa-instagram-square fa-2xl'></i>
                     </div>
-                    <div className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
+                    <div onClick={(e) => { linkClick(e, 'https://github.com/andribob26') }} id='github' className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
                         <i className='fa-brands fa-github-square fa-2xl'></i>
                     </div>
-                    <div className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
+                    <div onClick={(e) => { linkClick(e, 'https://id.linkedin.com/in/andri-febrian-6194521ba/in?trk=people-guest_people_search-card') }} id='linked' className='my-3 cursor-pointer hover:text-zinc-900 transition-all duration-200'>
                         <i className='fa-brands fa-linkedin fa-2xl'></i>
                     </div>
                 </div>
