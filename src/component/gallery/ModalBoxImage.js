@@ -1,4 +1,4 @@
-import React, { useRef} from 'react'
+import React, { useRef } from 'react'
 
 
 const ModalBoxImage = ({ modalBoxRef, imgSrc, title, desc }) => {
@@ -18,6 +18,7 @@ const ModalBoxImage = ({ modalBoxRef, imgSrc, title, desc }) => {
 
     }
     const modalImageClose = () => {
+        document.scrollingElement.style.overflowY = "auto"
         modalBoxRef.current.classList.remove('translate-y-0')
         modalBoxRef.current.classList.add('-translate-y-full')
     }
@@ -32,8 +33,8 @@ const ModalBoxImage = ({ modalBoxRef, imgSrc, title, desc }) => {
                     onClick={modalImageClose}
                     className='bg-zinc-900 h-full w-full bg-opacity-80 relative'
                 />
-                <div className='bg-zinc-50 opacity-100 p-6 rounded flex flex-col absolute box-border m-3 md:m-0 lg:m-0'>
-                    <div onMouseMove={zoom} className='mb-6 cursor-crosshair overflow-hidden md:h-[400px] '  style={{ backgroundImage: `url('${imgSrc}')`, backgroundSize: '200%' }}>
+                <div className='bg-zinc-50 opacity-100 p-6 rounded flex flex-col absolute box-border w-11/12 md:w-fit lg:w-fit'>
+                    <div onMouseMove={zoom} className='mb-6 cursor-crosshair overflow-hidden md:h-[400px] ' style={{ backgroundImage: `url('${imgSrc}')`, backgroundSize: '200%' }}>
                         <img
                             ref={imgRef}
                             className='w-full h-[400px] object-contain bg-zinc-200 hover:opacity-0 transition-all duration-500'

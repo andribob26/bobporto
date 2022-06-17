@@ -9,6 +9,7 @@ const ImageGalerry = ({ url, title, desc, category }) => {
 
 
   const modalImageShow = () => {
+    document.scrollingElement.style.overflowY = "hidden"
     setImgSrc(imgRef.current.src)
     modalBoxRef.current.classList.remove("-translate-y-full")
     modalBoxRef.current.classList.add("translate-y-0")
