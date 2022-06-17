@@ -68,7 +68,7 @@ const Profile = () => {
                             </div>
                             <div className='p-3 basis-1/4 transition-all duration-500 opacity-80 hover:opacity-100'>
                                 <img
-                                    src='assets/Javascript.png'
+                                    src='assets/javascript.png'
                                     style={{ width: '100%', height: 'auto' }}
                                     alt=''
                                 />
