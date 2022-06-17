@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/bobporto/static/css/main.7ef37b22.css",
+    "main.js": "/bobporto/static/js/main.e34fb80b.js",
+    "static/js/787.0191e704.chunk.js": "/bobporto/static/js/787.0191e704.chunk.js",
+    "index.html": "/bobporto/index.html",
+    "main.7ef37b22.css.map": "/bobporto/static/css/main.7ef37b22.css.map",
+    "main.e34fb80b.js.map": "/bobporto/static/js/main.e34fb80b.js.map",
+    "787.0191e704.chunk.js.map": "/bobporto/static/js/787.0191e704.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7ef37b22.css",
+    "static/js/main.e34fb80b.js"
+  ]
+}
