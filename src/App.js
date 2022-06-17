@@ -4,7 +4,7 @@ import Main from './component/Main'
 import NavSide from './component/NavSide'
 import Footer from './component/Footer'
 import { getAllGallery } from './store/slices/gallerySlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function App() {
   // console.log('jalan componenet app')
@@ -13,8 +13,10 @@ function App() {
   const headerRef = useRef()
   const mainRef = useRef()
   const btnToggleRef = useRef()
+  const toastRef = useRef()
 
   const dispatch = useDispatch()
+  const status = useSelector(state => state.contactSlice.status)
 
   useEffect(() => {
     dispatch(getAllGallery())
@@ -141,6 +143,17 @@ function App() {
     requestAnimationFrame(ease)
   }
 
+  useEffect(() => {
+    if (status === 'Fulfilled') {
+      toastRef.current.classList.remove('translate-y-10')
+      toastRef.current.classList.add('-translate-y-5')
+      setTimeout(() => {
+        toastRef.current.classList.remove('-translate-y-5')
+        toastRef.current.classList.add('translate-y-10')
+      }, 2000);
+    }
+  }, [status])
+
   //------------end script tampilan-------------///
 
 
@@ -161,6 +174,9 @@ function App() {
         <Header headerRef={headerRef} smoothScroll={smoothScroll} />
         <Main mainRef={mainRef} />
         <Footer />
+      </div>
+      <div ref={toastRef} className="bg-zinc-900 text-zinc-50 transition-all duration-300 text-center  lg:w-1/4 md:w-2/4 w-4/5  bg-opacity-80 fixed left-0 bottom-0 translate-x-1/2 translate-y-10 px-5 py-2 rounded">
+        Terimakasih sudah menghubungi
       </div>
     </>
   )

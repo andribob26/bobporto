@@ -27,13 +27,13 @@ const ModalBoxImage = ({ modalBoxRef, imgSrc, title, desc }) => {
             <div
                 ref={modalBoxRef}
                 id='modal-box'
-                className='fixed h-full w-full left-0 top-0 transition-all duration-500 z-50 flex justify-center items-center -translate-y-full'>
+                className='fixed h-full w-full left-0 top-0 transition-all duration-500 z-50 justify-center items-center flex -translate-y-full'>
                 <div
                     onClick={modalImageClose}
                     className='bg-zinc-900 h-full w-full bg-opacity-80 relative'
                 />
-                <div className='bg-zinc-50 opacity-100 p-6 rounded flex items-center flex-col absolute'>
-                    <div onMouseMove={zoom} className='mb-6 cursor-crosshair overflow-hidden h-[400px] '  style={{ backgroundImage: `url('${imgSrc}')`, backgroundSize: '200%' }}>
+                <div className='bg-zinc-50 opacity-100 p-6 rounded flex flex-col absolute box-border m-3 md:m-0 lg:m-0'>
+                    <div onMouseMove={zoom} className='mb-6 cursor-crosshair overflow-hidden md:h-[400px] '  style={{ backgroundImage: `url('${imgSrc}')`, backgroundSize: '200%' }}>
                         <img
                             ref={imgRef}
                             className='w-full h-[400px] object-contain bg-zinc-200 hover:opacity-0 transition-all duration-500'

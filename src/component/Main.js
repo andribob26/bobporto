@@ -10,20 +10,22 @@ export const Main = ({ mainRef }) => {
 
 
     return (
-        <main ref={mainRef} id='main-container' className='transition-all duration-500 relative'>
-            <LayoutSection id='gallery'>
-                <Gallery />
-            </LayoutSection>
-            <LayoutSection id='profile'>
-                <Profile />
-            </LayoutSection>
-            {/* <LayoutSection id='services'>
+        <>
+            <main ref={mainRef} id='main-container' className='transition-all duration-500 relative'>
+                <LayoutSection id='gallery'>
+                    <Gallery />
+                </LayoutSection>
+                <LayoutSection id='profile'>
+                    <Profile />
+                </LayoutSection>
+                {/* <LayoutSection id='services'>
                 <Services />
             </LayoutSection> */}
-            <LayoutSection id='contact'>
-                <Contact />
-            </LayoutSection>
-        </main>
+                <LayoutSection id='contact'>
+                    <Contact />
+                </LayoutSection>
+            </main>
+        </>
     )
 }
 
