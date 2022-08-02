@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllGallery, getLanguages } from '../../store/slices/gallerySlice'
-import ImageGalerry from './ImageGalerry'
+import { getAllGallery } from '../../store/slices/gallerySlice'
 import Languages from './Languages'
 import Isotope from 'isotope-layout'
 
@@ -9,7 +8,6 @@ const Gallery = () => {
     // console.log('jalan componenet gallery')
     const dispatch = useDispatch()
     const galleryData = useSelector(state => state.gallerySlice.galleryData)
-    const languagesData = useSelector(state => state.gallerySlice.languagesData)
     const status = useSelector(state => state.gallerySlice.status)
 
 
@@ -41,7 +39,7 @@ const Gallery = () => {
 
     useEffect(() => {
         dispatch(getAllGallery())
-    }, [])
+    }, [dispatch])
 
 
     useEffect(() => {
@@ -52,7 +50,7 @@ const Gallery = () => {
         })
 
         return () => isotope.current.destroy()
-    }, [galleryData])
+    }, [])
 
     useEffect(() => {
         filterKey === '*'

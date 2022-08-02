@@ -65,8 +65,8 @@ const gallerySlice = createSlice({
         },
 
         [getAllGallery.fulfilled]: (state, action) => {
-            state.status = 'fulfilled';
             state.galleryData = action.payload;
+            state.status = 'fulfilled';
         },
 
         [getAllGallery.rejected]: (state) => {
