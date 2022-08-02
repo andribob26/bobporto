@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { useComponentDidUpdate } from 'use-lifecycle-hooks'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { sendForm } from '../../store/slices/contactSlice'
 
@@ -31,7 +30,7 @@ const Contact = () => {
         dispatch(sendForm(form))
     }
 
-    useComponentDidUpdate(() => {
+    useEffect(() => {
 
         if (status === 'Fulfilled') {
             setForm((form) => ({

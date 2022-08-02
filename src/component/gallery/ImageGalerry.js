@@ -1,5 +1,4 @@
-import React, { useRef, useState, memo } from 'react'
-import { useComponentDidUpdate } from 'use-lifecycle-hooks'
+import React, { useRef, useState, memo, useEffect } from 'react'
 import ModalBoxImage from './ModalBoxImage'
 
 const ImageGalerry = ({ url, title, desc, category }) => {
@@ -16,7 +15,7 @@ const ImageGalerry = ({ url, title, desc, category }) => {
     modalBoxRef.current.classList.add("translate-y-0")
   }
 
-  useComponentDidUpdate(() => {
+  useEffect(() => {
 
     imgRef.current.onload = () => {
       imgRef.current.classList.remove("animate-pulse")

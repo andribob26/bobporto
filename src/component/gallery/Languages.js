@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
-import { useComponentWillMount, useComponentDidUpdate } from 'use-lifecycle-hooks'
-import { getLanguages } from '../../store/slices/gallerySlice'
 
 const Languages = ({ languagesData }) => {
 
     const [dataLang, setDataLang] = useState([])
 
 
-    useComponentWillMount(() => {
+    useEffect(() => {
         for (const key in languagesData.data) {
             setDataLang((dataLang) => [
                 ...dataLang,
                 { name: key, percent: (languagesData.data[key] / languagesData.total) * 100 }
             ])
         }
-    })
+    },[])
 
     return (
         <div className="flex flex-wrap">

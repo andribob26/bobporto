@@ -1,5 +1,4 @@
-import React, { useRef, useState, } from 'react'
-import { useComponentWillMount, useComponentDidMount, useComponentDidUpdate } from 'use-lifecycle-hooks'
+import React, { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllGallery, getLanguages } from '../../store/slices/gallerySlice'
 import ImageGalerry from './ImageGalerry'
@@ -40,12 +39,12 @@ const Gallery = () => {
 
     //lifecycle//
 
-    useComponentWillMount(() => {
+    useEffect(() => {
         dispatch(getAllGallery())
-    })
+    }, [])
 
 
-    useComponentDidUpdate(() => {
+    useEffect(() => {
         isotope.current = new Isotope('.filter-container', {
             itemSelector: '.filter-item',
             percentPosition: true,
@@ -55,7 +54,7 @@ const Gallery = () => {
         return () => isotope.current.destroy()
     }, [galleryData])
 
-    useComponentDidUpdate(() => {
+    useEffect(() => {
         filterKey === '*'
             ? isotope.current.arrange({ filter: `*` })
             : isotope.current.arrange({ filter: `.${filterKey}` })

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { useComponentDidUpdate } from 'use-lifecycle-hooks'
 
 export const NavSide = ({ btnToggleRef, appContainerRef, menuSideRef, smoothScroll }) => {
     // console.log('jalan componenet navside')
@@ -33,7 +32,7 @@ export const NavSide = ({ btnToggleRef, appContainerRef, menuSideRef, smoothScro
 
     }
 
-    useComponentDidUpdate(() => {
+    useEffect(() => {
         let headerHeight = document.querySelector("#header").offsetHeight
         if (window.pageYOffset > headerHeight) {
             btnToggleRef.current.classList.remove("-translate-x-12")
