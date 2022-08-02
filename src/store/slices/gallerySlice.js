@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Octokit } from "octokit";
+import { Octokit } from "@octokit/rest";
 import axios from "axios";
 import moment from "moment";
 const octokit = new Octokit();
