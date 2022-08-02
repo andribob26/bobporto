@@ -1,7 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useLayoutEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllGallery } from '../../store/slices/gallerySlice'
-import Languages from './Languages'
 import Isotope from 'isotope-layout'
 
 const Gallery = () => {
@@ -37,7 +36,7 @@ const Gallery = () => {
 
     //lifecycle//
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         dispatch(getAllGallery())
     }, [dispatch])
 
@@ -50,7 +49,7 @@ const Gallery = () => {
         })
 
         return () => isotope.current.destroy()
-    }, [])
+    })
 
     useEffect(() => {
         filterKey === '*'
@@ -88,7 +87,7 @@ const Gallery = () => {
                         <div className="loading mt-44" data-loading-text="Memuat&nbsp;gallery..."></div> :
                         status === 'fulfilled' ?
                             galleryData.map((item, index) => {
-                                return (<div key={index} className={`relative filter-item ${item.category} w-1/1 md:w-1/2 lg:w-1/3 `}>
+                                return (<div key={index} className={`filter-item ${item.category} w-full md:w-1/2 lg:w-1/3 `}>
                                     <div className="bg-white rounded border-2 border-zinc-600 p-3 divide-y divide-zinc-300 hover:-translate-y-1 hover:shadow hover:shadow-zinc-300 transition-all duration-300 ease-in-out">
                                         <div className="flex justify-between items-center mb-3">
                                             <div>
@@ -97,14 +96,19 @@ const Gallery = () => {
                                             </div>
                                         </div>
                                         <div className="pt-2">
-                                            <Languages languagesData={item.languagesData} />
-                                            <p className="text-sm text-zinc-600 mt-2">{item.updatedAt}</p>
+                                            <div className="flex flex-wrap">
+                                                {
+                                                    item.languagesData.map((lang, i) => {
+                                                        return (<p key={i} className="text-xs md:text-sm  mr-2">{lang.name} : <span className="text-zinc-600">{lang.percent.toFixed(2) + "%"}</span></p>)
+                                                    })
+                                                }
+                                            </div>
+                                            <p className="text-xs md:text-sm text-zinc-600 mt-2">{item.updatedAt}</p>
                                         </div>
                                     </div>
                                 </div>)
                             }) :
                             status === 'rejected' && <p className="text-center">kosong</p>
-
                 }
 
 

@@ -32,16 +32,23 @@ export const getAllGallery = createAsyncThunk('gallerySlice/getAllGallery', asyn
         return result
     })
 
+    const objToArr = (obj, total) => {
+        let result = []
+        for (const key in obj) {
+            result.push({ name: key, percent: (obj[key] / total) * 100 })
+        }
+        return result
+    }
+
+
 
     for (let i = 0; i < githubData.length; i++) {
+
         result.push({
             category: githubData[i].category,
             name: githubData[i].data.name,
             url: githubData[i].data.html_url,
-            languagesData: {
-                total: total[i],
-                data: languagesData[i]
-            },
+            languagesData: objToArr(languagesData[i], total[i]),
             updatedAt: moment(githubData[i].data.updated_at, "YYYYMMDD").fromNow(),
         })
     }
