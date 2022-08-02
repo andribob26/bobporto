@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Languages = ({ languagesData }) => {
 
@@ -12,7 +12,7 @@ const Languages = ({ languagesData }) => {
                 { name: key, percent: (languagesData.data[key] / languagesData.total) * 100 }
             ])
         }
-    },[])
+    }, [])
 
     return (
         <div className="flex flex-wrap">
