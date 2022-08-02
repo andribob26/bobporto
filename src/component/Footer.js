@@ -1,8 +1,9 @@
-import React from 'react'
+import { useState } from 'react'
 
 const Footer = () => {
+  const [currentYear,] = useState(new Date().getFullYear())
   return (
-    <div className="py-3 text-xs text-zinc-600"><p>&copy;2022 - Built by Andri febrian using ReactJs & TailwindCss</p></div>
+    <div className="py-3 text-xs text-zinc-600"><p>&copy;{currentYear} - Built by Andri febrian using ReactJs</p></div>
   )
 }
 

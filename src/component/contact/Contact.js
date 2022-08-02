@@ -1,4 +1,5 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState } from 'react'
+import { useComponentDidUpdate } from 'use-lifecycle-hooks'
 import { useSelector, useDispatch } from 'react-redux'
 import { sendForm } from '../../store/slices/contactSlice'
 
@@ -16,21 +17,6 @@ const Contact = () => {
 
     const { nama, email, message } = form
 
-    useEffect(() => {
-
-        if (status === 'Fulfilled') {
-            setForm((form) => ({
-                ...form,
-                nama: '',
-                email: '',
-                message: ''
-            })
-
-            )
-        }
-
-    }, [status])
-
     const onchangeHandler = (e) => {
 
         setForm({
@@ -44,6 +30,21 @@ const Contact = () => {
         e.preventDefault();
         dispatch(sendForm(form))
     }
+
+    useComponentDidUpdate(() => {
+
+        if (status === 'Fulfilled') {
+            setForm((form) => ({
+                ...form,
+                nama: '',
+                email: '',
+                message: ''
+            })
+
+            )
+        }
+
+    }, [status])
 
 
     return (
@@ -81,7 +82,7 @@ const Contact = () => {
                                     <input
                                         onChange={onchangeHandler}
                                         value={nama}
-                                        className='border-2 rounded-sm border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
+                                        className='border-2 rounded border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
                                         type='text'
                                         name='nama'
                                         placeholder='Your name'
@@ -91,7 +92,7 @@ const Contact = () => {
                                     <input
                                         onChange={onchangeHandler}
                                         value={email}
-                                        className='border-2 rounded-sm border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
+                                        className='border-2 rounded border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
                                         type='email'
                                         name='email'
                                         placeholder='Your Email'
@@ -101,7 +102,7 @@ const Contact = () => {
                                     <textarea
                                         onChange={onchangeHandler}
                                         value={message}
-                                        className='border-2 rounded-sm border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
+                                        className='border-2 rounded border-zinc-600 p-1 mb-3 focus:outline-none focus:border-zinc-900'
                                         name='message'
                                         rows='10'
                                         placeholder='Message'

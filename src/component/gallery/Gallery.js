@@ -1,11 +1,16 @@
-import React, { useEffect, useRef, useState, } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useRef, useState, } from 'react'
+import { useComponentWillMount, useComponentDidMount, useComponentDidUpdate } from 'use-lifecycle-hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllGallery, getLanguages } from '../../store/slices/gallerySlice'
 import ImageGalerry from './ImageGalerry'
+import Languages from './Languages'
 import Isotope from 'isotope-layout'
 
 const Gallery = () => {
     // console.log('jalan componenet gallery')
-    const { galleryData } = useSelector(state => state.gallerySlice.galleryData)
+    const dispatch = useDispatch()
+    const galleryData = useSelector(state => state.gallerySlice.galleryData)
+    const languagesData = useSelector(state => state.gallerySlice.languagesData)
     const status = useSelector(state => state.gallerySlice.status)
 
 
@@ -13,21 +18,6 @@ const Gallery = () => {
     const isotope = useRef()
     const [filterKey, setFilterKey] = useState('*')
     const btnFilters = useRef()
-    useEffect(() => {
-        isotope.current = new Isotope('.filter-container', {
-            itemSelector: '.filter-item',
-            percentPosition: true,
-            layoutMode: 'fitRows',
-        })
-
-        return () => isotope.current.destroy()
-    }, [galleryData])
-
-    useEffect(() => {
-        filterKey === '*'
-            ? isotope.current.arrange({ filter: `*` })
-            : isotope.current.arrange({ filter: `.${filterKey}` })
-    }, [filterKey])
 
     const btnActive = (e) => {
         btnFilters.current.childNodes.forEach((el) => {
@@ -46,12 +36,30 @@ const Gallery = () => {
             setFilterKey(e.target.id)
         }
     }
-    //scripts tampilan//
 
 
+    //lifecycle//
+
+    useComponentWillMount(() => {
+        dispatch(getAllGallery())
+    })
 
 
+    useComponentDidUpdate(() => {
+        isotope.current = new Isotope('.filter-container', {
+            itemSelector: '.filter-item',
+            percentPosition: true,
+            layoutMode: 'fitRows',
+        })
 
+        return () => isotope.current.destroy()
+    }, [galleryData])
+
+    useComponentDidUpdate(() => {
+        filterKey === '*'
+            ? isotope.current.arrange({ filter: `*` })
+            : isotope.current.arrange({ filter: `.${filterKey}` })
+    }, [filterKey])
 
     return (
         <>
@@ -63,19 +71,47 @@ const Gallery = () => {
                         </button>
                     </li>
                     <li className='mr-3 flex items-center'>
-                        <button onClick={btnActive} id="logo" className='bg-zinc-600 hover:bg-zinc-900 transition-all duration-500 text-zinc-50 text-sm font-semibold py-1 px-2 rounded'>
-                            LOGO
+                        <button onClick={btnActive} id="web" className='bg-zinc-600 hover:bg-zinc-900 transition-all duration-500 text-zinc-50 text-sm font-semibold py-1 px-2 rounded'>
+                            WEB
                         </button>
                     </li>
                     <li className='mr-3 flex items-center'>
-                        <button onClick={btnActive} id="ilustration" className='bg-zinc-600 hover:bg-zinc-900 transition-all duration-500 text-zinc-50 text-sm font-semibold py-1 px-2 rounded'>
-                            ILUSTRATION
+                        <button onClick={btnActive} id="mobile" className='bg-zinc-600 hover:bg-zinc-900 transition-all duration-500 text-zinc-50 text-sm font-semibold py-1 px-2 rounded'>
+                            MOBILE
                         </button>
                     </li>
                 </ul>
             </div>
             <div className='filter-container'>
+
+
+
                 {
+                    status === 'pending' ?
+                        <div className="loading mt-44" data-loading-text="Memuat&nbsp;gallery..."></div> :
+                        status === 'fulfilled' ?
+                            galleryData.map((item, index) => {
+                                return (<div key={index} className={`relative filter-item ${item.category} w-1/1 md:w-1/2 lg:w-1/3 `}>
+                                    <div className="bg-white rounded border-2 border-zinc-600 p-3 divide-y divide-zinc-300 hover:-translate-y-1 hover:shadow hover:shadow-zinc-300 transition-all duration-300 ease-in-out">
+                                        <div className="flex justify-between items-center mb-3">
+                                            <div>
+                                                <h1 className="text-lg">{item.name}</h1>
+                                                <button onClick={() => { window.open(item.url) }} className='flex items-center bg-zinc-600 hover:bg-zinc-900 transition-all duration-500 text-zinc-50 text-sm py-1 px-2 mt-2 rounded'><i className='fa-brands fa-github fa-l mr-2'></i>Repo</button>
+                                            </div>
+                                        </div>
+                                        <div className="pt-2">
+                                            <Languages languagesData={item.languagesData} />
+                                            <p className="text-sm text-zinc-600 mt-2">{item.updatedAt}</p>
+                                        </div>
+                                    </div>
+                                </div>)
+                            }) :
+                            status === 'rejected' && <p className="text-center">kosong</p>
+
+                }
+
+
+                {/* {
 
                     status === 'Pending' ?
                         <div className="loading mt-44" data-loading-text="Memuat&nbsp;gallery..."></div>
@@ -93,7 +129,7 @@ const Gallery = () => {
                             }) :
                             status === "Rejected" && <p className="text-center">kosong</p>
 
-                }
+                } */}
 
                 {/* <ImageGalerry
                     url='assets/images/hunk1.jpg'

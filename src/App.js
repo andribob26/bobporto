@@ -3,8 +3,7 @@ import Header from './component/Header'
 import Main from './component/Main'
 import NavSide from './component/NavSide'
 import Footer from './component/Footer'
-import { getAllGallery } from './store/slices/gallerySlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 function App() {
   // console.log('jalan componenet app')
@@ -14,13 +13,7 @@ function App() {
   const mainRef = useRef()
   const btnToggleRef = useRef()
   const toastRef = useRef()
-
-  const dispatch = useDispatch()
   const status = useSelector(state => state.contactSlice.status)
-
-  useEffect(() => {
-    dispatch(getAllGallery())
-  }, [dispatch])
 
 
   useEffect(() => {
@@ -175,7 +168,7 @@ function App() {
         <Main mainRef={mainRef} />
         <Footer />
       </div>
-      <div ref={toastRef} className="bg-zinc-900 text-zinc-50 transition-all duration-300 text-center  lg:w-1/4 md:w-2/4 w-4/5  bg-opacity-80 fixed left-0 bottom-0 translate-x-1/2 translate-y-10 px-5 py-2 rounded">
+      <div ref={toastRef} className="bg-zinc-900 text-zinc-50 transition-all duration-300 text-center  w-4/5  bg-opacity-80 fixed left-1/2 -translate-x-1/2 bottom-0 translate-y-10 px-5 py-2 rounded">
         Terimakasih sudah menghubungi
       </div>
     </>

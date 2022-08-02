@@ -1,24 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const sendForm = createAsyncThunk('contactSlice/sendForm', async ({ nama, email, message }) => {
-   
-    const reqOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: nama,
-            email: email,
-            message: message
-        })
-    }
 
-    const result = await fetch('https://apibob.herokuapp.com/api/send-email', reqOptions)
-        .then(res => res.json())
-    return result;
+
+    const result = await axios.post('https://apibob.herokuapp.com/api/send-email', {
+        name: nama,
+        email: email,
+        message: message
+    })
+    return result.data;
 })
 
 const initialState = {
-    status: null
+    status: ''
 }
 
 
@@ -31,7 +26,7 @@ const contactSlice = createSlice({
         },
 
         [sendForm.fulfilled]: (state, action) => {
-      
+
             state.status = 'Fulfilled'
         },
 

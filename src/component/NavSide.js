@@ -1,23 +1,9 @@
 import React, { useEffect, useRef } from 'react'
+import { useComponentDidUpdate } from 'use-lifecycle-hooks'
 
 export const NavSide = ({ btnToggleRef, appContainerRef, menuSideRef, smoothScroll }) => {
     // console.log('jalan componenet navside')
     const linkRef = useRef()
-    useEffect(() => {
-        let headerHeight = document.querySelector("#header").offsetHeight
-        if (window.pageYOffset > headerHeight) {
-            btnToggleRef.current.classList.remove("-translate-x-12")
-        }
-
-        window.addEventListener('scroll', (e) => {
-
-            if (window.pageYOffset > headerHeight) {
-                btnToggleRef.current.classList.remove("-translate-x-12")
-            } else {
-                btnToggleRef.current.classList.add("-translate-x-12")
-            }
-        })
-    }, [btnToggleRef])
 
     const clickNavHandler = (e) => {
         smoothScroll(e.currentTarget)
@@ -46,6 +32,24 @@ export const NavSide = ({ btnToggleRef, appContainerRef, menuSideRef, smoothScro
         })
 
     }
+
+    useComponentDidUpdate(() => {
+        let headerHeight = document.querySelector("#header").offsetHeight
+        if (window.pageYOffset > headerHeight) {
+            btnToggleRef.current.classList.remove("-translate-x-12")
+        }
+
+        window.addEventListener('scroll', (e) => {
+
+            if (window.pageYOffset > headerHeight) {
+                btnToggleRef.current.classList.remove("-translate-x-12")
+            } else {
+                btnToggleRef.current.classList.add("-translate-x-12")
+            }
+        })
+    }, [btnToggleRef])
+
+    
     return (
         <>
             <div ref={menuSideRef} id="menu-side" className="bg-zinc-50 pl-16 h-full z-20  transition-all duration-500 fixed -translate-x-[11.375rem] opacity-0">
