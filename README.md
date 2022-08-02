@@ -1,5 +1,3 @@
-Demo : https://andribob26.github.io/bobporto
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
